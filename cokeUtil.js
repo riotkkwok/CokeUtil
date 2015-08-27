@@ -5,17 +5,18 @@
  *
  * Auther: Rio Kwok
  *
- * Version: 0.0.1
+ * Version: 0.0.2
  *
  * Updates: 
- * 1. Initial
+ * 1. Minor update;
+ * 2. Add the method to get the value of specified param.
  *
  */
 
 ;(function(){
     var CokeUtil = function(){};
 
-    var ua = navigator.userAgent;
+    var ua = window.navigator.userAgent, param;
 
     /**
      * Specify the format(string) to parse the date object to string.
@@ -119,7 +120,32 @@
         }else{
             return 0;
         }
-    }
+    };
+
+
+    /**
+     * Get the value of specified param.
+     *
+     * @param {string} the param name
+     * @param {boolean} to re-parse the URL param or not
+     * @returns {string|null}
+     */
+    CokeUtil.prototype.getURLParam = function(name, isRenew){
+        var re = /(?:\?|&)([^&=]*)=?([^&]*)/g;
+        if(name === null || name === undefined || name === ''){
+            return null;
+        }
+        if(isRenew || !param){
+            param = {};
+            window.location.search.replace(re, function () {
+                if (arguments[1]) {
+                    param[arguments[1]] = arguments[2];
+                }
+                return '';
+            });
+        }
+        return (param[name] === "" ) ? null : param[name];
+    };
 
 
     /**
@@ -139,7 +165,7 @@
         isLieBao: /LieBao/i.test(ua),
         isSmartis: /SANFRANCISCO/i.test(ua),
         isBaiduBrowser: /baidubrowser/i.test(ua),
-    }
+    };
 
 
     window.CokeUtil = CokeUtil;
