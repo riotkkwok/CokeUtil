@@ -39,6 +39,9 @@ if ver1 is less than ver2, return -1;
 if ver1 equals to ver2, return 0.
 Return null if the arguments are incorrect.
 
+### cokeUtil.killKeyboard()
+to kill keyboard for mobile webview / browser.
+
 ### cokeUtil.userAgent
 to get the userAgent info, it is an object with the device / browser checking result.
 For example, isIOS / isAndroid / isWeiXin(check if it is in WeChat) / isChrome / isFireFox / ...

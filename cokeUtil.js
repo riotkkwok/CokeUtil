@@ -3,13 +3,16 @@
  *
  * Released under the MIT license
  *
+ * See https://github.com/riotkkwok/CokeUtil for details
+ *
  * Auther: Rio Kwok
  *
- * Version: 0.0.2
+ * Version: 0.1.0
  *
  * Updates: 
- * 1. Minor update;
- * 2. Add the method to get the value of specified param.
+ * 1. Comment update.
+ * 2. Add userAgent checking for IE, weibo and YY.
+ * 3. Add killKeyboard method (mainly for mobile).
  *
  */
 
@@ -148,14 +151,37 @@
     };
 
 
+    CokeUtil.prototype.killKeyboard = function(){
+        try {
+            if(document.activeElement && document.activeElement.nodeName.toLowerCase() != 'body') {
+                document.activeElement.blur();
+            } else {
+                for(var i=0; i<document.querySelectorAll('input, textarea, select').length; i++){
+                    document.querySelectorAll('input, textarea, select')[i].blur();
+                }
+            }
+        } catch(e) {}    
+    };
+
+
     /**
      * user agent info
      *
      */
     CokeUtil.prototype.userAgent = {
+
+        /* OS checking [start] */
         isIOS: /iPhone|iPod|iPad/i.test(ua),
         isAndroid: /Android/i.test(ua),
+        /* OS checking [end] */
+
+        /* App checking [start] */
         isWeiXin: /MicroMessenger/i.test(ua),
+        isWeibo: /weibo/i.test(ua),
+        isYY: /.*YY/.test(ua),
+        /* App checking [end] */
+
+        /* Browser checking [start] */
         isChrome: /chrome/i.test(ua),
         isUCWEB: /UCWEB|UCBrowser/i.test(ua),
         isOpera: /Opera|Oupeng/i.test(ua),
@@ -163,8 +189,13 @@
         isQQBrowser: /MQQBrowser/i.test(ua),
         is360Browser: /360 Aphone Browser/i.test(ua),
         isLieBao: /LieBao/i.test(ua),
-        isSmartis: /SANFRANCISCO/i.test(ua),
         isBaiduBrowser: /baidubrowser/i.test(ua),
+        isIE: /(MSIE).*(Windows).*(Trident)?/i.test(ua),
+        /* Browser checking [end] */
+
+        /* Device checking [start] */
+        isSmartis: /SANFRANCISCO/i.test(ua),
+        /* Device checking [end] */
     };
 
 
