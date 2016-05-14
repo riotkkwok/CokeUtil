@@ -45,3 +45,27 @@ to kill keyboard for mobile webview / browser.
 ### cokeUtil.userAgent
 to get the userAgent info, it is an object with the device / browser checking result.
 For example, isIOS / isAndroid / isWeiXin(check if it is in WeChat) / isChrome / isFireFox / ...
+
+
+## Additional Modules
+
+### Promise
+Promises API, an additional modules of CokeUtil, also indenpendent usage as Promise.
+
+With CokeUtil:
+
+    var p = new CokeUtil.Promise();
+    p.then(function(){
+        ...
+    });
+    ...
+    p.resolve();
+    
+Without CokeUtil:
+
+    var p = new Promise();
+    p.then(function(){
+        ...
+    });
+    ...
+    p.resolve();
