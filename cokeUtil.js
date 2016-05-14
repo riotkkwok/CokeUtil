@@ -7,12 +7,10 @@
  *
  * Auther: Rio Kwok
  *
- * Version: 0.1.0
+ * Version: 0.1.1
  *
  * Updates: 
  * 1. Comment update.
- * 2. Add userAgent checking for IE, weibo and YY.
- * 3. Add killKeyboard method (mainly for mobile).
  *
  */
 
@@ -151,6 +149,10 @@
     };
 
 
+    /**
+     * Kill keyboard for mobile webview / browser.
+     *
+     */
     CokeUtil.prototype.killKeyboard = function(){
         try {
             if(document.activeElement && document.activeElement.nodeName.toLowerCase() != 'body') {
