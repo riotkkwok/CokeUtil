@@ -9,10 +9,10 @@
  *
  * Auther: Rio Kwok
  *
- * Version: 0.1
+ * Version: 0.1.1
  *
  * Updates: 
- * 1. Initial.
+ * 1. fix aysn next issue.
  *
  */
 
@@ -44,7 +44,7 @@
         };
 
         self.resolve = function() {
-            var args = Array.prototype.slice.call(arguments), cbFunc;
+            var args = Array.prototype.slice.call(arguments);
 
             if(self.isResolved){ // not allow to call again.
                 console.warn('repeat to resolve error.');
@@ -58,7 +58,7 @@
             self.next.apply(self, args);
         };
         self.next = function(){
-            var args = Array.prototype.slice.call(arguments);
+            var args = Array.prototype.slice.call(arguments), cbFunc;
             if(!self.isResolved){
                 console.warn('unresolved error.');
                 return;
