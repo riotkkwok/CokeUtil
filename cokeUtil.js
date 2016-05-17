@@ -7,15 +7,27 @@
  *
  * Auther: Rio Kwok
  *
- * Version: 0.1.1
+ * Version: 1.0.0
  *
  * Updates: 
- * 1. Comment update.
+ * 1. no need to new CokeUtil anymore.
+ * 2. adapt to AMD/CMD module loader.
  *
  */
 
-;(function(){
-    var CokeUtil = function(){};
+!function(factory){
+    if(typeof exports === 'object' && typeof module !== 'undefined'){
+        // CMD
+        modul.exports = factory();
+    }else if(typeof define === 'function' && define.amd){
+        // AMD
+        define(factory);
+    } else {
+        // Browser globals
+        window.CokeUtil = factory();
+    };
+}(function(){
+    var CokeUtil = {};
 
     var ua = window.navigator.userAgent, param;
 
@@ -32,7 +44,7 @@
      *        s - one digit of second
      * @returns {string}
      */
-    CokeUtil.prototype.formatDate = function(date, format){
+    CokeUtil.formatDate = function(date, format){
         var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
         var result = format, tmpObj = {};
 
@@ -99,7 +111,7 @@
      * @param {string} version number string, likes 10.1, 2.3.4, 1.0.0.2
      * @returns {number|null} -1, 0, 1
      */
-    CokeUtil.prototype.compareVers = function(ver1, ver2){
+    CokeUtil.compareVers = function(ver1, ver2){
         if(typeof ver1 !== 'string' || typeof ver2 !== 'string' || ver1.length === 0 || ver2.length === 0){
             return null;
         }
@@ -131,7 +143,7 @@
      * @param {boolean} to re-parse the URL param or not
      * @returns {string|null}
      */
-    CokeUtil.prototype.getURLParam = function(name, isRenew){
+    CokeUtil.getURLParam = function(name, isRenew){
         var re = /(?:\?|&)([^&=]*)=?([^&]*)/g;
         if(name === null || name === undefined || name === ''){
             return null;
@@ -153,7 +165,7 @@
      * Kill keyboard for mobile webview / browser.
      *
      */
-    CokeUtil.prototype.killKeyboard = function(){
+    CokeUtil.killKeyboard = function(){
         try {
             if(document.activeElement && document.activeElement.nodeName.toLowerCase() != 'body') {
                 document.activeElement.blur();
@@ -170,7 +182,7 @@
      * user agent info
      *
      */
-    CokeUtil.prototype.userAgent = {
+    CokeUtil.UA = {
 
         /* OS checking [start] */
         isIOS: /iPhone|iPod|iPad/i.test(ua),
@@ -197,9 +209,10 @@
 
         /* Device checking [start] */
         isSmartis: /SANFRANCISCO/i.test(ua),
+        isIPad: /iPad/i.test(ua)
         /* Device checking [end] */
     };
 
 
-    window.CokeUtil = CokeUtil;
-})();
+    return CokeUtil;
+});

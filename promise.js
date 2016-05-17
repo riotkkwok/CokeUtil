@@ -9,14 +9,29 @@
  *
  * Auther: Rio Kwok
  *
- * Version: 0.1.1
+ * Version: 1.0.0
  *
  * Updates: 
- * 1. fix aysn next issue.
+ * 1. adapt to AMD/CMD module loader.
  *
  */
 
-!function(){
+!function(factory){
+    if(typeof exports === 'object' && typeof module !== 'undefined'){
+        // CMD
+        modul.exports = factory();
+    }else if(typeof define === 'function' && define.amd){
+        // AMD
+        define(factory);
+    } else {
+        // Browser globals
+        if(window.CokeUtil){
+            window.CokeUtil.Promise = factory();
+        }else{
+            window.Promise = factory();
+        }
+    };
+}(function(){
     var Promise = function(fn, isAsyn) {
         var self = this;
         self.queue = [];
@@ -115,9 +130,5 @@
         return newP;
     };
 
-    if(window.CokeUtil){
-        window.CokeUtil.Promise = Promise;
-    }else{
-        window.Promise = Promise;
-    }
-}();
+    return Promise;
+});
