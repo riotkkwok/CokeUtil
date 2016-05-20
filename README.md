@@ -70,3 +70,48 @@ Without CokeUtil:
     ...
     p.resolve();
 
+
+### Cookie
+Cookie getter / setter, an additional modules of CokeUtil, also indenpendent usage as Cookie.
+
+With CokeUtil:
+
+    CokeUtil.Cookie.get('username');
+    CokeUtil.Cookie.getAll();
+    CokeUtil.Cookie.isHas('username');
+    CokeUtil.Cookie.set('username', 'Jack');
+    CokeUtil.Cookie.set('username', 'Jack', {
+        domain: 'a.test.com',
+        path: '/b',
+        expires: new Date('2016/12/31'),
+        secure: true
+    });
+    CokeUtil.Cookie.set({
+        name: 'username',
+        val: 'Jack',
+        domain: 'a.test.com',
+        path: '/b',
+        expires: new Date('2016/12/31'),
+        secure: true
+    });
+    
+Without CokeUtil:
+
+    Cookie.get('username');
+    Cookie.getAll();
+    Cookie.isHas('username');
+    Cookie.set('username', 'Jack');
+    Cookie.set('username', 'Jack', {
+        domain: 'a.test.com',
+        path: '/b',
+        expires: new Date('2016/12/31'),
+        secure: true
+    });
+    Cookie.set({
+        name: 'username',
+        val: 'Jack',
+        domain: 'a.test.com',
+        path: '/b',
+        expires: new Date('2016/12/31'),
+        secure: true
+    });
