@@ -9,10 +9,10 @@
  *
  * Auther: Rio Kwok
  *
- * Version: 0.1.0
+ * Version: 0.1.1
  *
  * Updates: 
- * 1. initial
+ * 1. fix the expires failure issue
  *
  */
 
@@ -79,7 +79,7 @@
         }
         str += (object.domain ? 'domain='+object.domain+'; ' : '')
             + (object.path ? 'path='+object.path+'; ' : '')
-            + (object.expires ? 'expires='+object.expires+'; ' : '')
+            + (object.expires ? 'expires='+object.expires.toUTCString()+'; ' : '')
             + (object.secure ? 'secure=secure; ' : '');
         return document.cookie = str;
     };
