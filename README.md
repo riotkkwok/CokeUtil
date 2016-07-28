@@ -115,3 +115,21 @@ Without CokeUtil:
         expires: new Date('2016/12/31'),
         secure: true
     });
+
+
+### String
+String handler, an additional modules of CokeUtil, also indenpendent usage as UString.
+
+With CokeUtil:
+
+    CokeUtil.UString.parseXML('<html></html>');
+    CokeUtil.UString.escapeHTML('"123好好阿海abkj2w><j//&');
+    CokeUtil.UString.limitWords('123好好阿海abkj2wj', 10);
+    CokeUtil.UString.limitWords('123好好阿海abkj2wj', 10, 1);
+    
+Without CokeUtil:
+
+    UString.parseXML('<html></html>');
+    UString.escapeHTML('"123好好阿海abkj2w><j//&');
+    UString.limitWords('123好好阿海abkj2wj', 10);
+    UString.limitWords('123好好阿海abkj2wj', 10, 1);
