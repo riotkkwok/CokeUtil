@@ -49,12 +49,12 @@ For example, isIOS / isAndroid / isWeiXin(check if it is in WeChat) / isChrome /
 
 ## Additional Modules
 
-### Promise
-Promises API, an additional modules of CokeUtil, also indenpendent usage as Promise.
+### UPromise
+Promises API, an additional modules of CokeUtil, also indenpendent usage as UPromise.
 
 With CokeUtil:
 
-    var p = new CokeUtil.Promise();
+    var p = new CokeUtil.UPromise();
     p.then(function(){
         ...
     });
@@ -63,7 +63,7 @@ With CokeUtil:
     
 Without CokeUtil:
 
-    var p = new Promise();
+    var p = new UPromise();
     p.then(function(){
         ...
     });
@@ -117,7 +117,7 @@ Without CokeUtil:
     });
 
 
-### String
+### UString
 String handler, an additional modules of CokeUtil, also indenpendent usage as UString.
 
 With CokeUtil:
