@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function(){
     getElm('#isSmartis').innerHTML = util.UA.isSmartis;
     getElm('#isIPad').innerHTML = util.UA.isIPad;
 
-    var p1 = new util.Promise(), p2 = new util.Promise(), p3 = new util.Promise();
+    var p1 = new util.UPromise(), p2 = new util.UPromise(), p3 = new util.UPromise();
     p1.then(function(){
         var that = this;
         getElm('#pp1').innerHTML = +new Date;
@@ -42,6 +42,9 @@ document.addEventListener('DOMContentLoaded', function(){
     });
     p3.then(function(){
         getElm('#pp3').innerHTML = +new Date;
+    });
+    util.UPromise.when(p1, p2).then(function(){
+        getElm('#pwhen').innerHTML = +new Date;
     });
     p1.resolve();
 });

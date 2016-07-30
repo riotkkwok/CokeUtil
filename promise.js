@@ -1,7 +1,7 @@
 /*
- * Promise - Promises API
+ * UPromise - Promises API
  *
- * An additional modules of CokeUtil, also indenpendent usage as Promise.
+ * An additional modules of CokeUtil, also indenpendent usage as UPromise.
  *
  * Released under the MIT license
  *
@@ -9,14 +9,15 @@
  *
  * Auther: Rio Kwok
  *
- * Version: 1.0.0
+ * Version: 1.1.0
  *
  * Updates: 
- * 1. adapt to AMD/CMD module loader.
+ * 1. rename as UPromise
+ * 2. update serveral lines of code to follow the JSLint's rule
  *
  */
 
-!function(factory){
+(function(factory){
     if(typeof exports === 'object' && typeof module !== 'undefined'){
         // CMD
         modul.exports = factory();
@@ -26,13 +27,13 @@
     } else {
         // Browser globals
         if(window.CokeUtil){
-            window.CokeUtil.Promise = factory();
+            window.CokeUtil.UPromise = factory();
         }else{
-            window.Promise = factory();
+            window.UPromise = factory();
         }
-    };
-}(function(){
-    var Promise = function(fn, isAsyn) {
+    }
+})(function(){
+    var UPromise = function(fn, isAsyn) {
         var self = this;
         self.queue = [];
         self.current = 0;
@@ -48,7 +49,9 @@
                     isDone: false
                 });
 
-                noPending && self.next.apply(self, self.resolveArgs);
+                if(!!noPending){
+                    self.next.apply(self, self.resolveArgs);
+                }
             }
             return self;
         };
@@ -98,37 +101,35 @@
 
     };
 
-    Promise.when = function() {
-        var args = Array.prototype.slice.call(arguments), newP = new Promise();
+    UPromise.when = function() {
+        var args = Array.prototype.slice.call(arguments), newP = new UPromise();
 
-        function finish(p) {
-            var j = 0;
-            for (var i = 0; i < args.length; i++) {
-                if (p === args[i]) {
-                    args[i] = null;
+        function finish() {
+            var p = this;
+            setTimeout(function() {
+                var j = 0;
+                for (var i = 0; i < args.length; i++) {
+                    if (p === args[i]) {
+                        args[i] = null;
+                    }
+                    if (args[i] === null) {
+                        j++;
+                    }
                 }
-                if (args[i] === null) {
-                    j++;
+                if (j === args.length) {
+                    newP.resolve();
                 }
-            }
-            if (j === args.length) {
-                newP.resolve();
-            }
+            }, 0);
         }
 
         for (var i = 0; i < args.length; i++) {
-            if (args[i] instanceof Promise) {
-                args[i].then(function() {
-                    var _this = this;
-                    setTimeout(function() {
-                        finish(_this);
-                    }, 0);
-                });
+            if (args[i] instanceof UPromise) {
+                args[i].then(finish);
             }
         }
 
         return newP;
     };
 
-    return Promise;
+    return UPromise;
 });
