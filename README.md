@@ -72,21 +72,21 @@ Without CokeUtil:
 
 
 ### Cookie
-Cookie getter / setter, an additional modules of CokeUtil, also indenpendent usage as Cookie.
+Cookie getter / setter, an additional modules of CokeUtil, also indenpendent usage as UCookie.
 
 With CokeUtil:
 
-    CokeUtil.Cookie.get('username');
-    CokeUtil.Cookie.getAll();
-    CokeUtil.Cookie.isHas('username');
-    CokeUtil.Cookie.set('username', 'Jack');
-    CokeUtil.Cookie.set('username', 'Jack', {
+    CokeUtil.UCookie.get('username');
+    CokeUtil.UCookie.getAll();
+    CokeUtil.UCookie.isHas('username');
+    CokeUtil.UCookie.set('username', 'Jack');
+    CokeUtil.UCookie.set('username', 'Jack', {
         domain: 'a.test.com',
         path: '/b',
         expires: new Date('2016/12/31'),
         secure: true
     });
-    CokeUtil.Cookie.set({
+    CokeUtil.UCookie.set({
         name: 'username',
         val: 'Jack',
         domain: 'a.test.com',
@@ -97,17 +97,17 @@ With CokeUtil:
     
 Without CokeUtil:
 
-    Cookie.get('username');
-    Cookie.getAll();
-    Cookie.isHas('username');
-    Cookie.set('username', 'Jack');
-    Cookie.set('username', 'Jack', {
+    UCookie.get('username');
+    UCookie.getAll();
+    UCookie.isHas('username');
+    UCookie.set('username', 'Jack');
+    UCookie.set('username', 'Jack', {
         domain: 'a.test.com',
         path: '/b',
         expires: new Date('2016/12/31'),
         secure: true
     });
-    Cookie.set({
+    UCookie.set({
         name: 'username',
         val: 'Jack',
         domain: 'a.test.com',
