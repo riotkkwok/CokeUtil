@@ -1,7 +1,7 @@
 /*
- * Cookie - Cookie getter / setter
+ * UCookie - Cookie getter / setter
  *
- * An additional modules of CokeUtil, also indenpendent usage as Cookie.
+ * An additional modules of CokeUtil, also indenpendent usage as UCookie.
  *
  * Released under the MIT license
  *
@@ -9,14 +9,16 @@
  *
  * Auther: Rio Kwok
  *
- * Version: 0.1.1
+ * Version: 1.0.0
  *
  * Updates: 
- * 1. fix the expires failure issue
+ * 1. rename as UCookie
+ * 2. bug fix
+ * 3. update serveral lines of code to follow the JSLint's rule
  *
  */
 
-!function(factory){
+(function(factory){
     if(typeof exports === 'object' && typeof module !== 'undefined'){
         // CMD
         modul.exports = factory();
@@ -26,17 +28,20 @@
     } else {
         // Browser globals
         if(window.CokeUtil){
-            window.CokeUtil.Cookie = factory();
+            window.CokeUtil.UCookie = factory();
         }else{
-            window.Cookie = factory();
+            window.UCookie = factory();
         }
-    };
-}(function(){
-    var Cookie = {};
+    }
+})(function(){
+    var UCookie = {};
 
-    Cookie.get = function(name){
+    UCookie.get = function(name){
         var str = document.cookie.replace(/ /g, ''), rg = new RegExp('(?:;)?'+name+'=([^;]*)');
         var result = rg.exec(str);
+        if(!result){
+            return undefined;
+        }
         if(result.length>1){
             return result[1];
         }else{
@@ -44,19 +49,19 @@
         }
     };
 
-    Cookie.getAll = function(){
+    UCookie.getAll = function(){
         var index, obj = {}, list = document.cookie.replace(/ /g, '').split(';');
         for(var i=0; i<list.length; i++){
             index = list[i].indexOf('=');
             if(index<0){
                 continue;
             }
-            obj[list[i].substring(0, index)]=list[i].substring(index);
+            obj[list[i].substring(0, index)]=list[i].substring(index+1);
         }
         return obj;
     };
 
-    Cookie.isHas = function(name){
+    UCookie.isHas = function(name){
         if(this.get(name) !== undefined){
             return true;
         }else{
@@ -64,7 +69,7 @@
         }
     };
 
-    Cookie.set = function(name, val, options){
+    UCookie.set = function(name, val, options){
         var str = '';
         if(arguments.length === 1 && typeof name === 'object'){
             if(!object.name || !object.val){
@@ -72,17 +77,17 @@
             }
             str += object.name+'='+object.val+'; ';
         }else if(arguments.length === 2){
-            str += name+'='+val+'; ';
-            return document.cookie = str;
+            document.cookie = str += name+'='+val+'; ';
+            return document.cookie;
         }else{
             str += name+'='+val+'; ';
         }
-        str += (object.domain ? 'domain='+object.domain+'; ' : '')
-            + (object.path ? 'path='+object.path+'; ' : '')
-            + (object.expires ? 'expires='+object.expires.toUTCString()+'; ' : '')
-            + (object.secure ? 'secure=secure; ' : '');
-        return document.cookie = str;
+        document.cookie = str += (object.domain ? 'domain='+object.domain+'; ' : '') +
+            (object.path ? 'path='+object.path+'; ' : '') + 
+            (object.expires ? 'expires='+object.expires.toUTCString()+'; ' : '') + 
+            (object.secure ? 'secure=secure; ' : '');
+        return document.cookie;
     };
 
-    return Cookie;
+    return UCookie;
 });
